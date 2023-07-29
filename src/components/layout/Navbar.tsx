@@ -1,4 +1,4 @@
-import { login, logout, onUserStateChange } from 'api/firebase';
+import { getAdmins, login, logout, onUserStateChange } from 'api/firebase';
 import UserProfile from 'components/User';
 import { User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,12 @@ export default function Navbar() {
 
   useEffect(() => {
     onUserStateChange(setUser);
+    getAdmins();
   }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <header className='flex justify-between p-2 border-b border-gray-300'>
