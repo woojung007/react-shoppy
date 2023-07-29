@@ -1,31 +1,18 @@
 import { login, logout, onUserStateChange } from 'api/firebase';
+import UserProfile from 'components/User';
 import { User } from 'firebase/auth';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaShopify } from 'react-icons/fa';
 import { HiPencil, HiShoppingCart } from 'react-icons/hi';
 import { RiAccountCircleFill, RiLogoutCircleLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    onUserStateChange((user: SetStateAction<User | null>) => {
-      setUser(user);
-    });
+    onUserStateChange(setUser);
   }, []);
-
-  const handleLogin = async () => {
-    const user = await login();
-
-    if (!user) return;
-    setUser(user);
-  };
-
-  const handleLogout = async () => {
-    const user = await logout();
-    setUser(user);
-  };
 
   return (
     <header className='flex justify-between p-2 border-b border-gray-300'>
@@ -43,14 +30,16 @@ export default function Navbar() {
           <HiPencil />
         </Link>
 
+        {user && <UserProfile user={user} />}
+
         {!user && (
-          <button onClick={handleLogin} className='text-3xl'>
+          <button onClick={login} className='text-3xl'>
             <RiAccountCircleFill />
           </button>
         )}
 
         {user && (
-          <button onClick={handleLogout} className='text-3xl'>
+          <button onClick={logout} className='text-3xl'>
             <RiLogoutCircleLine />
           </button>
         )}
