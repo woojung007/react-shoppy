@@ -9,9 +9,9 @@ export default function UserProfile({
   user: { photoURL, displayName },
 }: UserProps) {
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center shrink-0'>
       <img
-        className='w-10 h-10 rounded-full mr-2'
+        className='w-10 h-10 mr-2 rounded-full'
         src={photoURL!}
         alt={displayName!}
       />

@@ -1,5 +1,6 @@
 import { login, logout, onUserStateChange } from 'api/firebase';
 import UserProfile from 'components/User';
+import Button from 'components/ui/Button';
 import { User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FaShopify } from 'react-icons/fa';
@@ -7,11 +8,15 @@ import { HiPencil, HiShoppingCart } from 'react-icons/hi';
 import { RiAccountCircleFill, RiLogoutCircleLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
+type CustomUser = User & {
+  isAdmin: boolean;
+};
+
 export default function Navbar() {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<CustomUser>();
 
   useEffect(() => {
-    onUserStateChange((user: User) => {
+    onUserStateChange((user: CustomUser) => {
       setUser(user);
     });
   }, []);
@@ -32,22 +37,23 @@ export default function Navbar() {
         <Link to='/carts' className='text-3xl'>
           <HiShoppingCart />
         </Link>
-        <Link to='/products/new' className='text-3xl'>
-          <HiPencil />
-        </Link>
-
+        {user && user.isAdmin && (
+          <Link to='/products/new' className='text-3xl'>
+            <HiPencil />
+          </Link>
+        )}
         {user && <UserProfile user={user} />}
 
         {!user && (
-          <button onClick={login} className='text-3xl'>
-            <RiAccountCircleFill />
-          </button>
+          <Button text='Login' onClick={login}>
+            <RiAccountCircleFill size={23} />
+          </Button>
         )}
 
         {user && (
-          <button onClick={logout} className='text-3xl'>
-            <RiLogoutCircleLine />
-          </button>
+          <Button text='Logout' onClick={logout}>
+            <RiLogoutCircleLine size={23} />
+          </Button>
         )}
       </nav>
     </header>
