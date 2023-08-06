@@ -1,4 +1,4 @@
-import { getAdmins, login, logout, onUserStateChange } from 'api/firebase';
+import { login, logout, onUserStateChange } from 'api/firebase';
 import UserProfile from 'components/User';
 import { User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -11,8 +11,9 @@ export default function Navbar() {
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    onUserStateChange(setUser);
-    getAdmins();
+    onUserStateChange((user: User) => {
+      setUser(user);
+    });
   }, []);
 
   useEffect(() => {

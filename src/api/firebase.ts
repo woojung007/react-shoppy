@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  User,
 } from 'firebase/auth';
 import { getDatabase, ref, child, get } from 'firebase/database';
 
@@ -17,7 +18,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-
 const provider = new GoogleAuthProvider();
 
 export function login() {
@@ -31,24 +31,28 @@ export function logout() {
 }
 
 export function onUserStateChange(callback: CallableFunction) {
-  onAuthStateChanged(auth, (user) => {
-    // 1. 사용자가 로그인한 경우
-    // 2. 사용자가 어드민 권한을 가지고 있는지 확인!
-    // 3. {...user, isAdmin: true/false}
-    callback(user);
+  onAuthStateChanged(auth, async (user) => {
+    const updatedUser = user ? await checkAdminUser(user) : null;
+
+    callback(updatedUser);
   });
 }
 
-export async function getAdmins() {
+export async function checkAdminUser(user: User) {
   try {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, `admins/`));
 
     if (snapshot.exists()) {
       console.log(snapshot.val());
-      return;
+
+      const admins = snapshot.val();
+      const isAdmin = admins.includes(user.uid);
+
+      return { ...user, isAdmin };
     }
     console.log('No data available');
+    return user;
   } catch (error) {
     console.error(error);
   }
