@@ -1,9 +1,12 @@
+import Banner from 'components/Banner';
+import Products from 'components/Products';
 import React from 'react';
 
 export default function Home() {
   return (
-    <div>
-      <div>Home</div>
-    </div>
+    <>
+      <Banner />
+      <Products />
+    </>
   );
 }

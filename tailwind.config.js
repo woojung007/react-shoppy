@@ -6,6 +6,9 @@ module.exports = {
       colors: {
         brand: 'hotpink',
       },
+      backgroundImage: {
+        banner: `url('../public/images/banner.png')`,
+      },
     },
   },
   plugins: [],
