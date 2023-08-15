@@ -7,7 +7,9 @@ import {
   onAuthStateChanged,
   User,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, child, get, set } from 'firebase/database';
+import { Product } from 'pages/NewProduct';
+import { v4 as uuid } from 'uuid';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,6 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const database = getDatabase();
 
 export function login() {
   signInWithPopup(auth, provider)
@@ -40,8 +43,7 @@ export function onUserStateChange(callback: CallableFunction) {
 
 export async function checkAdminUser(user: User) {
   try {
-    const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, `admins/`));
+    const snapshot = await get(child(ref(database), `admins/`));
 
     if (snapshot.exists()) {
       const admins = snapshot.val();
@@ -54,4 +56,15 @@ export async function checkAdminUser(user: User) {
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function addNewProduct(product: Product, image: string) {
+  const id = uuid();
+  set(ref(database, `product/${id}`), {
+    ...product,
+    id,
+    price: product.price,
+    image,
+    options: product.options.split(','),
+  });
 }
