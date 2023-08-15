@@ -1,8 +1,5 @@
-import { User } from 'firebase/auth';
-import React from 'react';
-
 type UserProps = {
-  user: User;
+  user: any;
 };
 
 export default function UserProfile({

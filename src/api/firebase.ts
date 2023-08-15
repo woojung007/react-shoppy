@@ -44,8 +44,6 @@ export async function checkAdminUser(user: User) {
     const snapshot = await get(child(dbRef, `admins/`));
 
     if (snapshot.exists()) {
-      console.log(snapshot.val());
-
       const admins = snapshot.val();
       const isAdmin = admins.includes(user.uid);
 
