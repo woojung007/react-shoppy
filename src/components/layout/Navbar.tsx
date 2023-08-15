@@ -33,17 +33,9 @@ export default function Navbar() {
 
         {user && <UserProfile user={user} />}
 
-        {!user && (
-          <Button text='Login' onClick={login}>
-            <RiAccountCircleFill size={23} />
-          </Button>
-        )}
+        {!user && <Button text='Login' onClick={login} />}
 
-        {user && (
-          <Button text='Logout' onClick={logout}>
-            <RiLogoutCircleLine size={23} />
-          </Button>
-        )}
+        {user && <Button text='Logout' onClick={logout} />}
       </nav>
     </header>
   );
