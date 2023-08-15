@@ -4,15 +4,22 @@ type ButtonProps = {
   text?: string;
   onClick: () => void;
   children?: React.ReactNode;
+  disabled?: boolean;
 };
 
-export default function Button({ text, onClick, children }: ButtonProps) {
+export default function Button({
+  text,
+  onClick,
+  disabled,
+  children,
+}: ButtonProps) {
   return (
     <button
       className={
         'px-4 py-2 text-white rounded-sm bg-brand hover:brightness-110'
       }
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
       {children}

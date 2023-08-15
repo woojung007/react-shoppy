@@ -60,7 +60,7 @@ export async function checkAdminUser(user: User) {
 
 export async function addNewProduct(product: Product, image: string) {
   const id = uuid();
-  set(ref(database, `product/${id}`), {
+  return set(ref(database, `product/${id}`), {
     ...product,
     id,
     price: product.price,

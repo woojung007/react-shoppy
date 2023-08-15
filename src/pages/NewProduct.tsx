@@ -22,6 +22,8 @@ export default function NewProduct() {
     options: '',
   });
   const [file, setFile] = useState<File | null>();
+  const [isUploading, setIsUploading] = useState(false);
+  const [success, setSuccess] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -35,21 +37,41 @@ export default function NewProduct() {
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      setIsUploading(true);
 
-    if (!file) return;
-    const url = await uploadImage(file);
-    await addNewProduct(product, url);
+      if (!file) return;
+      await uploadImage(file).then((url) => {
+        addNewProduct(product, url).then(() => {
+          setSuccess('성공적으로 제품이 추가되었습니다.');
+          setTimeout(() => {
+            setSuccess('');
+          }, 4000);
+        });
+      });
 
-    // 제품의 사진을 cloudinary에 업로드 하고 url을 획득
-    // firebase에 새로운 제품을 추가함
+      // 제품의 사진을 cloudinary에 업로드 하고 url을 획득
+      // firebase에 새로운 제품을 추가함
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleClick = () => {};
   return (
-    <section>
-      {file && <img src={URL.createObjectURL(file)} alt='local file' />}
+    <section className='w-full text-center'>
+      <h2 className='my-4 text-2xl font-bold'>새로운 제품 등록</h2>
 
-      <form onSubmit={handleSubmit}>
+      {success && <p className='my-2'> ✅ {success}</p>}
+      {file && (
+        <img
+          className='mx-auto mb-2 w-96'
+          src={URL.createObjectURL(file)}
+          alt='local file'
+        />
+      )}
+
+      <form className='flex flex-col px-12 mb-28' onSubmit={handleSubmit}>
         <input
           type='file'
           accept='image/*'
@@ -103,7 +125,11 @@ export default function NewProduct() {
           onChange={handleChange}
         />
 
-        <Button text='제품 등록하기' onClick={handleClick} />
+        <Button
+          text={isUploading ? '업로드중...' : '제품 등록하기'}
+          onClick={handleClick}
+          disabled={isUploading}
+        />
       </form>
     </section>
   );
