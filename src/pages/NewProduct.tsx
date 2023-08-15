@@ -1,3 +1,4 @@
+import { uploadImage } from 'api/uploader';
 import Button from 'components/ui/Button';
 import React, { ChangeEvent, useState } from 'react';
 
@@ -22,8 +23,12 @@ export default function NewProduct() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!file) return;
+    const url = await uploadImage(file);
+    console.log(url);
 
     // 제품의 사진을 cloudinary에 업로드 하고 url을 획득
     // firebase에 새로운 제품을 추가함
