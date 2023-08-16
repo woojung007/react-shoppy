@@ -2,7 +2,7 @@ import React, { MouseEvent } from 'react';
 
 type ButtonProps = {
   text?: string;
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
   disabled?: boolean;
 };
