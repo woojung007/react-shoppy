@@ -10,7 +10,12 @@ type AuthContextProviderProps = {
   children: React.ReactNode;
 };
 
-const AuthContext = createContext({ user: { isAdmin: false }, login, logout });
+const AuthContext = createContext({
+  user: { isAdmin: false },
+  uid: '',
+  login,
+  logout,
+});
 
 export default function AuthContextProvider({
   children,
@@ -24,7 +29,9 @@ export default function AuthContextProvider({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, uid: user && user.uid, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,9 +1,8 @@
 import UserProfile from 'components/User';
-import { useAuthContext } from 'components/context/AuthContext';
 import Button from 'components/ui/Button';
+import { useAuthContext } from 'context/AuthContext';
 import { FaShopify } from 'react-icons/fa';
 import { HiPencil, HiShoppingCart } from 'react-icons/hi';
-import { RiAccountCircleFill, RiLogoutCircleLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {

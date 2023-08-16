@@ -1,6 +1,9 @@
+import { addOrUpdateToCart } from 'api/firebase';
 import Button from 'components/ui/Button';
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import { useAuthContext } from 'context/AuthContext';
+import { ChangeEvent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { CartProduct } from 'types/cart.types';
 
 export default function ProductDetail() {
   const {
@@ -11,20 +14,31 @@ export default function ProductDetail() {
 
   const [selected, setSelected] = useState(options && options[0]);
 
+  const { uid } = useAuthContext();
+
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
   };
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    // 장바구니에 추가
+  // 장바구니에 추가
+  const handleClick = () => {
+    const product: CartProduct = {
+      id,
+      image,
+      title,
+      price,
+      option: selected,
+      quantity: 1,
+    };
+    addOrUpdateToCart(uid, product);
   };
 
   return (
     <>
       <p className='mx-12 mt-4 text-gray-700'>{category}</p>
 
-      <section className='flex flex-col p-4 md:flex-row'>
-        <img className='w-full px-4 basis-7/12' src={image} alt={title} />
+      <section className='flex flex-col w-full p-4 md:flex-row'>
+        <img className='w-7/12 px-4 basis-7/12' src={image} alt={title} />
 
         <div className='flex flex-col w-full p-4 basis-5/12'>
           <h2 className='py-2 text-3xl font-bold'>{title}</h2>

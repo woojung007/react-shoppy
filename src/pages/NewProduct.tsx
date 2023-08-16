@@ -2,16 +2,7 @@ import { addNewProduct } from 'api/firebase';
 import { uploadImage } from 'api/uploader';
 import Button from 'components/ui/Button';
 import React, { ChangeEvent, useState } from 'react';
-
-export type Product = {
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  options: string;
-  id?: string;
-  image?: string;
-};
+import { Product } from 'types/product.types';
 
 export default function NewProduct() {
   const [product, setProduct] = useState<Product>({
