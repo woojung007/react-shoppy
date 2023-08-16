@@ -1,8 +1,9 @@
+import CartStatus from 'components/CartStatus';
 import UserProfile from 'components/User';
 import Button from 'components/ui/Button';
 import { useAuthContext } from 'context/AuthContext';
 import { FaShopify } from 'react-icons/fa';
-import { HiPencil, HiShoppingCart } from 'react-icons/hi';
+import { HiPencil } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
@@ -20,7 +21,7 @@ export default function Navbar() {
 
         {user && (
           <Link to='/carts' className='text-3xl'>
-            <HiShoppingCart />
+            <CartStatus />
           </Link>
         )}
 
