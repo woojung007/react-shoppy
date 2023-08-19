@@ -12,6 +12,7 @@ export default function ProductDetail() {
   } = useLocation();
 
   const [selected, setSelected] = useState(options && options[0]);
+  const [success, setSuccess] = useState('');
 
   const { addOrUpdateItem } = useCart();
 
@@ -29,7 +30,12 @@ export default function ProductDetail() {
       option: selected,
       quantity: 1,
     };
-    addOrUpdateItem.mutate(product);
+    addOrUpdateItem.mutate(product, {
+      onSuccess: () => {
+        setSuccess('장바구니에 추가되었습니다.');
+        setTimeout(() => setSuccess(''), 3000);
+      },
+    });
   };
 
   return (
@@ -64,6 +70,7 @@ export default function ProductDetail() {
             </select>
           </div>
 
+          {success && <p className='my-2'>{success}</p>}
           <Button text='장바구니에 추가' onClick={handleClick} />
         </div>
       </section>

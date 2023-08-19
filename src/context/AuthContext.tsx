@@ -23,9 +23,7 @@ export default function AuthContextProvider({
   const [user, setUser] = useState<any>();
 
   useEffect(() => {
-    onUserStateChange((user: CustomUser) => {
-      setUser(user);
-    });
+    onUserStateChange((user: CustomUser) => setUser(user));
   }, []);
 
   return (
