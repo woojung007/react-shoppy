@@ -1,7 +1,7 @@
-import { addNewProduct } from 'api/firebase';
 import { uploadImage } from 'api/uploader';
 import Button from 'components/ui/Button';
-import React, { ChangeEvent, useState } from 'react';
+import useProducts from 'hooks/useProducts';
+import { ChangeEvent, useState } from 'react';
 import { Product } from 'types/product.types';
 
 export default function NewProduct() {
@@ -15,6 +15,8 @@ export default function NewProduct() {
   const [file, setFile] = useState<File | null>();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState('');
+
+  const { addProduct } = useProducts();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -33,12 +35,17 @@ export default function NewProduct() {
 
       if (!file) return;
       await uploadImage(file).then((url) => {
-        addNewProduct(product, url).then(() => {
-          setSuccess('성공적으로 제품이 추가되었습니다.');
-          setTimeout(() => {
-            setSuccess('');
-          }, 4000);
-        });
+        return addProduct.mutate(
+          { product, url },
+          {
+            onSuccess: () => {
+              setSuccess('성공적으로 제품이 추가되었습니다.');
+              setTimeout(() => {
+                setSuccess('');
+              }, 4000);
+            },
+          }
+        );
       });
 
       // 제품의 사진을 cloudinary에 업로드 하고 url을 획득

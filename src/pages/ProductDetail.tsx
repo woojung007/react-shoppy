@@ -1,6 +1,5 @@
-import { addOrUpdateToCart } from 'api/firebase';
 import Button from 'components/ui/Button';
-import { useAuthContext } from 'context/AuthContext';
+import useCart from 'hooks/useCart';
 import { ChangeEvent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CartProduct } from 'types/cart.types';
@@ -14,7 +13,7 @@ export default function ProductDetail() {
 
   const [selected, setSelected] = useState(options && options[0]);
 
-  const { uid } = useAuthContext();
+  const { addOrUpdateItem } = useCart();
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
@@ -30,7 +29,7 @@ export default function ProductDetail() {
       option: selected,
       quantity: 1,
     };
-    addOrUpdateToCart(uid, product);
+    addOrUpdateItem.mutate(product);
   };
 
   return (
