@@ -45,8 +45,10 @@ export default function ProductDetail() {
       <section className='flex flex-col w-full p-4 md:flex-row'>
         <img className='w-7/12 px-4 basis-7/12' src={image} alt={title} />
 
-        <div className='flex flex-col w-full p-4 basis-5/12'>
-          <h2 className='py-2 text-3xl font-bold'>{title}</h2>
+        <div className='flex flex-col p-4 basis-5/12'>
+          <h2 className='py-2 text-3xl font-bold break-all whitespace-pre-wrap'>
+            {title}
+          </h2>
           <p className='py-2 text-2xl font-bold border-b border-gray-400'>
             ₩{price}
           </p>

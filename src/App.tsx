@@ -8,8 +8,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <Navbar />
-        <Outlet />
+        <div className='pb-28'>
+          <Navbar />
+          <Outlet />
+        </div>
       </AuthContextProvider>
     </QueryClientProvider>
   );
