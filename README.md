@@ -81,7 +81,7 @@ yarn `^1.22.15`
 - [Firebase API](https://firebase.google.com/?hl=ko)
 
   - Authentication
-  - Realtime Datebase
+  - Realtime Database
 
 - [Cloudinary](https://cloudinary.com/)
   - image upload
