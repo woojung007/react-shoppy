@@ -8,9 +8,6 @@
 
 https://github.com/woojung007/project-shoppy/assets/99471927/d6f522b8-dccc-475c-8dae-4ce70870888f
 
-
-
-
 ## 실행
 
 ```
@@ -75,8 +72,6 @@ yarn `^1.22.15`
 │  └─ types
 │     ├─ cart.types.ts
 │     └─ product.types.ts
-├─ .prettierrc
-├─ package.json
 ├─ tailwind.config.js
 └─ tsconfig.json
 ```
