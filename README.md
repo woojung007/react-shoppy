@@ -31,10 +31,8 @@ yarn `^1.22.15`
 │  ├─ index.html
 │  ├─ manifest.json
 │  ├─ robots.txt
-│  ├─ shoppy.ico
 │  └─ shoppy.svg
 ├─ src
-│  ├─ App.test.tsx
 │  ├─ App.tsx
 │  ├─ api
 │  │  ├─ firebase.ts
@@ -66,9 +64,6 @@ yarn `^1.22.15`
 │  │  ├─ NotFound.tsx
 │  │  ├─ ProductDetail.tsx
 │  │  └─ ProtectedRoute.tsx
-│  ├─ react-app-env.d.ts
-│  ├─ reportWebVitals.ts
-│  ├─ setupTests.ts
 │  └─ types
 │     ├─ cart.types.ts
 │     └─ product.types.ts
