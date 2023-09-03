@@ -57,7 +57,7 @@ yarn start
 
 <br/>
 
-## Directories
+## 폴더 구조
 
 ```
 📁
@@ -109,7 +109,7 @@ yarn start
 
 <br/>
 
-## APIS
+## 사용한 APIS
 
 - [Firebase API](https://firebase.google.com/?hl=ko)
 
