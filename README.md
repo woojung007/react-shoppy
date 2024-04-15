@@ -24,8 +24,6 @@
 
 ## 데모
 
-- [배포 링크](https://main--courageous-rugelach-92fb07.netlify.app/)
-
 https://github.com/woojung007/project-shoppy/assets/99471927/d6f522b8-dccc-475c-8dae-4ce70870888f
 
 <br/>
